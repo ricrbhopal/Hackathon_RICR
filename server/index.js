@@ -1,0 +1,68 @@
+import dotenv from 'dotenv';
+import express from 'express';
+import connectDB from './src/config/db.js';
+import cors from 'cors';
+import AuthRouter from './src/routes/authRoutes.js';
+import UserRoute from './src/routes/userRoute.js';
+import ProjectThemeRouter from './src/routes/projectThemeRoute.js';
+import SuperAdminRoute from './src/routes/SuperadminRoute.js';
+import AdminRegister from './src/routes/adminRoutes.js';  
+import Result from "../server/src/routes/resultRoutes.js"
+import ProblemStatementRoute from './src/routes/problemStatementRoute.js';
+import HomeRoute from './src/routes/homeRoutes.js';
+import AccomodationRoute from './src/routes/accomodationRoutes.js';
+import morgan from 'morgan';
+
+dotenv.config();
+const app = express();
+
+app.use(cors({
+    origin: [
+        'http://localhost:5173',
+        'https://hackathon.ricr.in',
+        'https://www.hackathon.ricr.in'
+    ],
+    credentials: true
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan('dev'));
+
+app.use('/auth', AuthRouter);
+app.use('/user', UserRoute);
+app.use('/theme', ProjectThemeRouter);
+app.use('/problem', ProblemStatementRoute);
+app.use('/admin', SuperAdminRoute);
+app.use('/s/admin', AdminRegister);
+app.use('/result', Result);
+app.use('/home', HomeRoute);
+app.use('/accomodations', AccomodationRoute);
+
+app.get('/', (req, res) => {
+    res.send('API is running...');
+});
+
+app.use((err, req, res, next) => {
+    console.error('Error occurred:', {
+        message: err.message,
+        stack: err.stack,
+        statusCode: err.statusCode,
+        url: req.url,
+        method: req.method,
+        body: req.body,
+        headers: req.headers
+    });
+    const errorMessage = err.message || 'Internal Server Error';
+    const statusCode = err.statusCode || 500;
+    res.status(statusCode).json({
+        error: errorMessage,
+        statusCode: statusCode
+    });
+});
+
+const PORT = process.env.PORT || 4500;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+    connectDB();
+});

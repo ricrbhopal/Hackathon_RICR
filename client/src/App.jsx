@@ -13,38 +13,50 @@ import SubAdminDashboard from "./pages/subAdminDashboard/subAdminDashboard.jsx";
 import MemberDashboard from "./pages/memberDashboard/memberDashboard.jsx";
 import RoadMap from "../src/components/content/roadMap.jsx";
 
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {  Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
       <Router>
-        <Toaster/>
+        <Toaster />
         <AuthProvider>
           <Routes>
             {/* Routes with navbar */}
-     
+
             <Route
               path="/*"
               element={
                 <>
-
-                         <Navbar />
-
+                  <Navbar />
                   <main>
                     <Routes>
                       <Route path="/" element={<Home />} />
                       <Route path="/register/*" element={<RegisterMain />} />
                       <Route path="/login" element={<Login />} />
-                      <Route path="/leader-dashboard" element={<LeaderDashboard />} />
+                      <Route
+                        path="/leader-dashboard"
+                        element={<LeaderDashboard />}
+                      />
                       <Route path="/adminLogin" element={<AdminLogin />} />
-                      <Route path="/dashboard/super-admin" element={<AdminDashboard />} />
-                      <Route path="/dashboard/admin-register" element={<AdminRegister />} />
-                      <Route path="/dashboard/sub-admin" element={<SubAdminDashboard />} />
-                      <Route path="/member-dashboard" element={<MemberDashboard />} />
-                    <Route path="/roadmap" element={<RoadMap />} />
+                      <Route
+                        path="/dashboard/super-admin"
+                        element={<AdminDashboard />}
+                      />
+                      <Route
+                        path="/dashboard/admin-register"
+                        element={<AdminRegister />}
+                      />
+                      <Route
+                        path="/dashboard/sub-admin"
+                        element={<SubAdminDashboard />}
+                      />
+                      <Route
+                        path="/member-dashboard"
+                        element={<MemberDashboard />}
+                      />
+                      <Route path="/roadmap" element={<RoadMap />} />
                     </Routes>
                   </main>
                 </>

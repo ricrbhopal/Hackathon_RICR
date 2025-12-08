@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { useAuth } from "../configs/authContext"; // adjust path if needed
-import LOGO from "../../public/navlogo.png";
+import LOGO from "/navlogo.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);

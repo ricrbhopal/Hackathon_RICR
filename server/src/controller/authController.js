@@ -21,11 +21,22 @@ export const SendOTP = async (req, res, next) => {
         }
 
         const existingUser = await User.findOne({ email: email.toLowerCase() });
+        
+        // Check if user is a Leader with unverified OTP and no payment
         if (existingUser && existingUser.role === 'Leader') {
-            const error = new Error('You are already registered as a Leader');
-            error.statusCode = 400;
-            return next(error);
-        } if (existingUser && existingUser.role === 'Member') {
+            const team = await Team.findById(existingUser.teamId);
+            
+            // If OTP not verified and no payment, allow re-registration by deleting old entries
+            if (team && !team.isOTPVerified && !team.PaymentID) {
+                await User.deleteOne({ _id: existingUser._id });
+                await Team.deleteOne({ _id: team._id });
+                // Continue with new registration
+            } else {
+                const error = new Error('You are already registered as a Leader');
+                error.statusCode = 400;
+                return next(error);
+            }
+        } else if (existingUser && existingUser.role === 'Member') {
             const error = new Error('You are already registered as a Member');
             error.statusCode = 400;
             return next(error);
@@ -126,10 +137,11 @@ export const Register = async (req, res, next) => {
         }
         const nextTeamCode = `RICR-NK-${nextNumber.toString().padStart(4, '0')}`;
 
-        // Create the team
+        // Create the team with OTP verified flag
         const newTeam = await Team.create({
             teamName: nextTeamCode + " Team",
-            teamCode: nextTeamCode
+            teamCode: nextTeamCode,
+            isOTPVerified: true  // Mark OTP as verified after successful verification
         });
 
         const newUser = await User.create({
@@ -140,7 +152,9 @@ export const Register = async (req, res, next) => {
             teamId: newTeam._id
         });
 
-
+        // Delete OTP entries after successful registration
+        await Otp.deleteMany({ otpfor: email.toLowerCase(), type: 'email' });
+        await Otp.deleteMany({ otpfor: phone.toString(), type: 'phone' });
 
         res.status(201).json({ message: 'Team created successfully', team: newTeam, user: newUser });
 
@@ -284,7 +298,12 @@ export const submitPayment = async (req, res) => {
             status: "Pending",
         });
 
-        // Send email to Vineet with payment details
+        // Link payment ID to team
+        await Team.findByIdAndUpdate(teamId, {
+            PaymentID: payment._id
+        });
+
+        // Send email to admin with payment details
         await sendPaymentSubmissionEmail("ashish@ricr.in", {
             teamId,
             name,

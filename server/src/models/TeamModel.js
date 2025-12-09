@@ -19,6 +19,14 @@ const teamSchema = new mongoose.Schema({
         ref: 'ProblemStatement',
         default: null,
     },
+    isOTPVerified: {
+        type: Boolean,
+        default: false, 
+    },
+    isActive: {
+        type: Boolean,
+        default: false,
+    },
     PaymentID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Payment",

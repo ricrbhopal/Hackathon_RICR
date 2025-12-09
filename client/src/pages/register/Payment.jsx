@@ -35,7 +35,6 @@ const buildIntentForPackage = (upiLink, packageName) => {
 
 const Payment = () => {
   const navigate = useNavigate();
-  const [countdown, setCountdown] = useState(10);
   const [paymentSubmitted, setPaymentSubmitted] = useState(false);
   const [registrationData, setRegistrationData] = useState(null);
 

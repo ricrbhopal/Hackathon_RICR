@@ -729,6 +729,12 @@ export const verifyPayment = async (req, res) => {
     if (req.user && req.user._id) payment.verifiedBy = req.user._id;
     await payment.save();
 
+    // Mark team as active when payment is approved
+    if (team) {
+        team.isActive = true;
+        await team.save();
+    }
+
     const { username, password } = req.body;
 
     if (username && password) {

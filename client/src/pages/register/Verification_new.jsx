@@ -207,7 +207,7 @@ const Verification = () => {
               <div className="flex justify-between">
                 <span className="text-gray-600 font-medium">Email:</span>
                 <span className="text-gray-800 break-all">
-                  {registrationData.email.toLolwerCase()}
+                  {registrationData.email.toLowerCase()}
                 </span>
               </div>
               <div className="flex justify-between">

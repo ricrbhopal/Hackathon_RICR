@@ -673,4 +673,34 @@ export const getAllPayments = async (req, res) => {
     }
 };
 
+// Toggle team active/inactive status
+export const toggleTeamStatus = async (req, res) => {
+    try {
+        const { teamId } = req.params;
+        const { isActive } = req.body;
+
+        if (!teamId) {
+            return res.status(400).json({ message: "Team ID is required" });
+        }
+
+        const team = await Team.findByIdAndUpdate(
+            teamId,
+            { isActive: isActive },
+            { new: true }
+        );
+
+        if (!team) {
+            return res.status(404).json({ message: "Team not found" });
+        }
+
+        res.status(200).json({ 
+            message: `Team ${isActive ? 'activated' : 'deactivated'} successfully`, 
+            team 
+        });
+    } catch (error) {
+        console.error("Toggle Team Status Error:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
 

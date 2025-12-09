@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AdminAPI } from '../../../configs/api';
-import { FiSearch, FiUsers, FiX, FiMail, FiPhone, FiUser, FiAward, FiFilter } from 'react-icons/fi';
+import { FiSearch, FiUsers, FiX, FiMail, FiPhone, FiUser, FiAward, FiFilter, FiToggleLeft, FiToggleRight } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 // Reusable Modal Component
 const Modal = ({ open, onClose, title, children, size = 'md' }) => {
@@ -122,6 +123,7 @@ const TeamManageTab = () => {
   const [modalTeamName, setModalTeamName] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
+  const [togglingTeam, setTogglingTeam] = useState(null);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -136,6 +138,25 @@ const TeamManageTab = () => {
     };
     fetchTeams();
   }, []);
+
+  const handleToggleTeamStatus = async (teamId, currentStatus) => {
+    setTogglingTeam(teamId);
+    try {
+      const newStatus = !currentStatus;
+      await AdminAPI.toggleTeamStatus(teamId, newStatus);
+      
+      // Update local state
+      setTeams(teams.map(team => 
+        team._id === teamId ? { ...team, isActive: newStatus } : team
+      ));
+      
+      toast.success(`Team ${newStatus ? 'activated' : 'deactivated'} successfully`);
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to toggle team status');
+    } finally {
+      setTogglingTeam(null);
+    }
+  };
 
   // Filter teams based on search and status
   const filteredTeams = teams.filter(team => {
@@ -371,17 +392,51 @@ const TeamManageTab = () => {
                       </div>
 
                       {/* Action Button */}
-                      <button
-                        onClick={() => {
-                          setModalMembers(team.members || []);
-                          setModalTeamName(team.teamName);
-                          setModalOpen(true);
-                        }}
-                        className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl sm:rounded-2xl font-semibold transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-xl"
-                      >
-                        <FiUsers className="w-4 h-4 sm:w-5 sm:h-5 group-hover/btn:scale-110 transition-transform duration-300" />
-                        View Members ({team.members?.length || 0})
-                      </button>
+                      <div className="space-y-2">
+                        <button
+                          onClick={() => {
+                            setModalMembers(team.members || []);
+                            setModalTeamName(team.teamName);
+                            setModalOpen(true);
+                          }}
+                          className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl sm:rounded-2xl font-semibold transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-xl"
+                        >
+                          <FiUsers className="w-4 h-4 sm:w-5 sm:h-5 group-hover/btn:scale-110 transition-transform duration-300" />
+                          View Members ({team.members?.length || 0})
+                        </button>
+
+                        {/* Toggle Active/Inactive Button */}
+                        <button
+                          onClick={() => handleToggleTeamStatus(team._id, team.isActive)}
+                          disabled={togglingTeam === team._id}
+                          className={`w-full py-3 rounded-xl sm:rounded-2xl font-semibold transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg hover:shadow-xl ${
+                            team.isActive
+                              ? 'bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white'
+                              : 'bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white'
+                          } ${togglingTeam === team._id ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                          {togglingTeam === team._id ? (
+                            <>
+                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                              <span>Processing...</span>
+                            </>
+                          ) : (
+                            <>
+                              {team.isActive ? (
+                                <>
+                                  <FiToggleRight className="w-5 h-5" />
+                                  <span>Deactivate Team</span>
+                                </>
+                              ) : (
+                                <>
+                                  <FiToggleLeft className="w-5 h-5" />
+                                  <span>Activate Team</span>
+                                </>
+                              )}
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );

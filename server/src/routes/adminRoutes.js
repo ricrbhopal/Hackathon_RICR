@@ -23,7 +23,8 @@ import {
 			declareResults,
 			getAllPayments,
 			getPaymentById,
-			verifyPayment
+			verifyPayment,
+			toggleTeamStatus
 
 } from '../controller/adminController.js';
 import multer from 'multer';
@@ -53,6 +54,7 @@ router.delete('/deleteProblemStatement/:id', requireAdminPermission('deleteProbl
 // Teams and Users
 router.get('/teamsWithMembers', authenticateAdmin, getAllTeams);
 router.get('/users', authenticateAdmin, getAllUsers);
+router.patch('/team/:teamId/toggle-status', authenticateAdmin, toggleTeamStatus);
 
 // Admins
 router.get('/admins', getAllAdmins);

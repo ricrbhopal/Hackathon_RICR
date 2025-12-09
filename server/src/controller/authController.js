@@ -214,6 +214,13 @@ export const Login = async (req, res, next) => {
             return next(error);
         }
 
+        // Check if team is active
+        if (!team.isActive) {
+            const error = new Error('You are unable to login due to some internal error. Please contact the coordinator.');
+            error.statusCode = 403;
+            return next(error);
+        }
+
         const theme = await Theme.findById(team.teamTheme) || null;
 
 

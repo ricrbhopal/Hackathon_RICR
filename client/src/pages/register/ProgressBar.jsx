@@ -21,7 +21,7 @@ const ProgressBar = ({ currentStep }) => {
               {/* Step Container with Fixed Width */}
               <div className="flex flex-col items-center w-1/3 text-center">
                 <div
-                  className={`flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-full border-4 transition-all duration-500 shadow-md ${
+                  className={`flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 lg:w-11 lg:h-11 rounded-full border-4 transition-all duration-500 shadow-md ${
                     isCompleted
                       ? 'bg-gradient-to-r from-green-400 to-green-600 border-green-500 text-white'
                       : isCurrent
@@ -29,10 +29,10 @@ const ProgressBar = ({ currentStep }) => {
                       : 'bg-gray-200 border-gray-300 text-gray-500'
                   }`}
                 >
-                  <Icon className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
+                  <Icon className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
                 </div>
                 <span
-                  className={`text-xs sm:text-sm mt-2 font-medium transition-colors duration-300 ${
+                  className={`text-xs sm:text-sm mt-1 transition-colors duration-300 ${
                     isCompleted || isCurrent ? 'text-blue-700 font-semibold' : 'text-gray-600'
                   }`}
                 >

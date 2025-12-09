@@ -199,8 +199,8 @@ export const AdminAPI = {
     // Activate all problem statements (SuperAdmin) 
     activateAllProblemStatements: () => api.patch('/problem/activate-all'),
     
-
-
+    // Toggle team active/inactive status
+    toggleTeamStatus: (teamId, isActive) => api.patch(`/admin/team/${teamId}/toggle-status`, { isActive }),
 
        // payment
     getAllPayments: () => api.get('/admin/payments'),

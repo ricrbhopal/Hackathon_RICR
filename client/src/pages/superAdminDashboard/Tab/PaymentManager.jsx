@@ -82,6 +82,8 @@ const PaymentManager = () => {
           toast.success("Payment verified.");
         }
         resetModal();
+        // Refresh payments list to update team status
+        await fetchPayments();
       } else {
         toast.error(data?.message || "Unexpected response from server");
       }

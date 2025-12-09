@@ -56,7 +56,7 @@ const FAQS = [
   },
   {
     question: "When will the Team ID and password be provided?",
-    answer: "After payment verification, the admin will confirm registration, update the database, and send an email containing: Team ID (RICR-NK-XXXX format) and email address.",
+    answer: "After payment verification by admin,you will get email containing: Team ID (RICR-NK-XXXX format) and email address.",
     category: "Login"
   },
   {

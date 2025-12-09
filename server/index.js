@@ -20,7 +20,6 @@ app.use(cors({
     origin: [
         'http://localhost:5173',
         'https://hackathon.ricr.in',
-        'https://www.hackathon.ricr.in'
     ],
     credentials: true
 }));

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import HeroPage from '../components/content/heroPage.jsx';
 import FeaturesSection from "../components/content/FeaturesSection";
 import EventDetailsSection from "../components/content/EventDetailsSection";
@@ -10,6 +11,10 @@ import Process from '../components/content/roadMap.jsx';
 import JuryPanel from '../components/content/juryPanel.jsx';
 
 function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Hero Section (full width) */}
@@ -37,15 +42,15 @@ function Home() {
           </span>
 
           <div className="flex flex-col sm:flex-row sm:space-x-6 text-sm text-center md:text-right">
-            <a href="/privacy" className="hover:underline mb-2 sm:mb-0">
+            <Link to="/privacy" className="hover:underline mb-2 sm:mb-0">
               Privacy Policy
-            </a>
-            <a href="/terms" className="hover:underline mb-2 sm:mb-0">
+            </Link>
+            <Link to="/terms" className="hover:underline mb-2 sm:mb-0">
               Terms of Service
-            </a>
-            <a href="mailto:ashish@ricr.in" className="hover:underline">
+            </Link>
+            <Link to="/contact" className="hover:underline">
               Contact
-            </a>
+            </Link>
           </div>
         </div>
       </footer>

@@ -12,6 +12,9 @@ import AdminRegister from "./pages/superAdminDashboard/Tab/adminRegister.jsx"; /
 import SubAdminDashboard from "./pages/subAdminDashboard/subAdminDashboard.jsx";
 import MemberDashboard from "./pages/memberDashboard/memberDashboard.jsx";
 import RoadMap from "../src/components/content/roadMap.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import TermsOfService from "./pages/TermsOfService.jsx";
+import Contact from "./pages/Contact.jsx";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
@@ -56,7 +59,9 @@ function App() {
                         path="/member-dashboard"
                         element={<MemberDashboard />}
                       />
-                      <Route path="/roadmap" element={<RoadMap />} />
+                      <Route path="/privacy" element={<PrivacyPolicy />} />
+                      <Route path="/terms" element={<TermsOfService />} />
+                      <Route path="/contact" element={<Contact />} />
                     </Routes>
                   </main>
                 </>

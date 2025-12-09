@@ -14,6 +14,10 @@ const LeaderDashboard = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const hackathonUser = JSON.parse(sessionStorage.getItem('hackathonUser'));
     const userRole = hackathonUser?.user?.role;
     

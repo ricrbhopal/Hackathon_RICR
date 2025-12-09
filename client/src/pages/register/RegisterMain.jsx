@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LeaderDetails from './LeaderDetails.jsx';
 import Verification from './Verification_new.jsx';
 import Payment from './Payment.jsx';
 
 const RegisterMain = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Routes>
       <Route path="/" element={<LeaderDetails />} />

@@ -23,6 +23,10 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('Home');
   const { hasPermission, loading } = usePermissions();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Tab to permission mapping
   const TAB_PERMISSIONS = {
     'Home': 'viewOverview',

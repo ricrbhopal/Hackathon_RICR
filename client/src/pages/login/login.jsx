@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User, Lock, LogIn, AlertCircle, CheckCircle, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../../configs/api.js';
 import { toast } from 'react-hot-toast';
 
 const Login = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ teamCode: '', email: '' });
   const [errors, setErrors] = useState({});

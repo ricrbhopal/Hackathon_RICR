@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdminAPI } from "../../configs/api";
 import Logo from "../../assets/logo.png";
@@ -10,7 +10,8 @@ function AdminLogin() {
     const navigate = useNavigate();
 
     // Clear any localStorage data on component mount
-    React.useEffect(() => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
         localStorage.removeItem("adminEmail");
         localStorage.removeItem("permissions");
         localStorage.removeItem("adminUser");

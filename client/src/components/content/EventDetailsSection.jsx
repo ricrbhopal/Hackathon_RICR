@@ -86,7 +86,7 @@ const EventDetailsSection = () => {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#0B2A4A] font-bold">•</span>
-                  <span>Team alterations allowed until Feb 25, 2026</span>
+                  <span>Team alterations allowed until Feb 24, 2026</span>
                 </li>
               </ul>
             </InfoCard>
@@ -101,16 +101,16 @@ const EventDetailsSection = () => {
                     <li>
                       <button
                         className="flex items-center cursor-pointer gap-2 font-semibold text-[#0B2A4A] hover:text-green-700 focus:outline-none"
-                        onClick={() => handlePhoneClick('+916268923703')}
+                        onClick={() => handlePhoneClick('+918889996494')}
                         type="button"
                       >
                         <FaPhoneAlt className="text-blue-600" />
-                        +91 62689 23703
+                        +91 888 999 6494
                       </button>
                     </li>
                   </ul>
                   <a
-                    href="https://www.google.com/maps/place/RICR+-+Raj+Institute+of+Coding+%26+Robotics+%7C+Best+Java+Coding+Classes+In+Bhopal/@23.2689676,77.4524774,17z/data=!3m2!4b1!5s0x397c69f43f4807e5:0x6396b47e29fb2ed7!4m6!3m5!1s0x397c6967f58e0dbf:0x65d0724cf8368e2d!8m2!3d23.2689627!4d77.4573483!16s%2Fg%2F11vzch1wzj?entry=ttu"
+                    href="https://maps.app.goo.gl/QRTHDv1795Cc182i7"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center mt-3 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
@@ -131,16 +131,16 @@ const EventDetailsSection = () => {
                     <li>
                       <button
                         className="flex items-center gap-2 cursor-pointer font-semibold text-[#0B2A4A] hover:text-green-700 focus:outline-none"
-                        onClick={() => handlePhoneClick('+916268923703')}
+                        onClick={() => handlePhoneClick('+917974716422')}
                         type="button"
                       >
                         <FaPhoneAlt className="text-blue-600" />
-                        +91 62689 23703
+                        +91 79747 16422
                       </button>
                     </li>
                   </ul>
                  <a
-                href="https://www.google.com/maps/place/NRI+Institute+of+Research+and+Technology+(NIRT),+Bhopal,+M.P/@23.2458624,77.5000911,762m/data=!3m2!1e3!4b1!4m6!3m5!1s0x397c412491bc4217:0x992321e57fea48dc!8m2!3d23.2458575!4d77.502666!16s%2Fg%2F11gj0tht90?entry=ttu&g_ep=EgoyMDI1MTAwNy4wIKXMDSoASAFQAw%3D%3D"
+                href="https://maps.app.goo.gl/Yw3HaW35VmqicE7Z8"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center mt-3 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
@@ -168,7 +168,7 @@ const EventDetailsSection = () => {
             <InfoCard icon={<FaMapMarkerAlt />} heading="Venue">
               <p className="text-gray-700 font-medium">NRI Institute of Information Science and Technology (NIIST), Bhopal, Madhya Pradesh.</p>
               <a
-                href="https://www.google.com/maps/place/NRI+Institute+of+Research+and+Technology+(NIRT),+Bhopal,+M.P/@23.2458624,77.5000911,762m/data=!3m2!1e3!4b1!4m6!3m5!1s0x397c412491bc4217:0x992321e57fea48dc!8m2!3d23.2458575!4d77.502666!16s%2Fg%2F11gj0tht90?entry=ttu&g_ep=EgoyMDI1MTAwNy4wIKXMDSoASAFQAw%3D%3D"
+                href="https://maps.app.goo.gl/Yw3HaW35VmqicE7Z8"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center mt-3 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"

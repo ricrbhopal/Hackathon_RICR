@@ -23,6 +23,10 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('Home');
   const navigate = useNavigate ? useNavigate() : null;
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Superadmin authentication check
   React.useEffect(() => {
     const adminUser = sessionStorage.getItem('adminUser');

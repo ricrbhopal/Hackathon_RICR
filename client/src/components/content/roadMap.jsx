@@ -13,8 +13,8 @@ const RoadMap = () => {
     },
     {
       title: "Registration Close",
-      date: "20th Feb, 2026",
-      time: "09:15 AM",
+      date: "1st Feb, 2026",
+      time: "12:00 PM",
       color: "green",
     },
     {

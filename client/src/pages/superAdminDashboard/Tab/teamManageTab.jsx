@@ -333,10 +333,31 @@ const TeamManageTab = () => {
                             <span className="px-2 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 border border-blue-200">
                               {team.teamCode}
                             </span>
-                            <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusBadgeColor(status)}`}>
-                              {status}
-                            </span>
                           </div>
+                        </div>
+                        
+                        {/* Status Badge and Toggle */}
+                        <div className="flex items-center gap-3">
+                          <span className={`px-3 py-1.5 rounded-full text-xs font-semibold ${getStatusBadgeColor(status)}`}>
+                            {status}
+                          </span>
+                          
+                          {/* Toggle Switch */}
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={team.isActive || false}
+                              onChange={() => handleToggleTeamStatus(team._id, team.isActive)}
+                              disabled={togglingTeam === team._id}
+                              className="sr-only peer"
+                            />
+                            <div className={`w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500 ${togglingTeam === team._id ? 'opacity-50 cursor-not-allowed' : ''}`}></div>
+                            {togglingTeam === team._id && (
+                              <div className="absolute -right-6 top-1/2 -translate-y-1/2">
+                                <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                              </div>
+                            )}
+                          </label>
                         </div>
                       </div>
 
@@ -368,7 +389,19 @@ const TeamManageTab = () => {
 
                         <div className="flex items-center gap-3 text-sm">
                           <div className="w-8 h-8 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
-                            <FiAward className="w-4 h-4 text-green-600" />
+                            <FiPhone className="w-4 h-4 text-green-600" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="text-gray-600 text-xs">Phone:</span>
+                            <span className="font-semibold text-gray-800 ml-2 text-sm truncate block">
+                              {leader?.phone || 'Not provided'}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 text-sm">
+                          <div className="w-8 h-8 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
+                            <FiAward className="w-4 h-4 text-purple-600" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <span className="text-gray-600 text-xs">Theme:</span>
@@ -392,51 +425,17 @@ const TeamManageTab = () => {
                       </div>
 
                       {/* Action Button */}
-                      <div className="space-y-2">
-                        <button
-                          onClick={() => {
-                            setModalMembers(team.members || []);
-                            setModalTeamName(team.teamName);
-                            setModalOpen(true);
-                          }}
-                          className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl sm:rounded-2xl font-semibold transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-xl"
-                        >
-                          <FiUsers className="w-4 h-4 sm:w-5 sm:h-5 group-hover/btn:scale-110 transition-transform duration-300" />
-                          View Members ({team.members?.length || 0})
-                        </button>
-
-                        {/* Toggle Active/Inactive Button */}
-                        <button
-                          onClick={() => handleToggleTeamStatus(team._id, team.isActive)}
-                          disabled={togglingTeam === team._id}
-                          className={`w-full py-3 rounded-xl sm:rounded-2xl font-semibold transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg hover:shadow-xl ${
-                            team.isActive
-                              ? 'bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white'
-                              : 'bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white'
-                          } ${togglingTeam === team._id ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        >
-                          {togglingTeam === team._id ? (
-                            <>
-                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                              <span>Processing...</span>
-                            </>
-                          ) : (
-                            <>
-                              {team.isActive ? (
-                                <>
-                                  <FiToggleRight className="w-5 h-5" />
-                                  <span>Deactivate Team</span>
-                                </>
-                              ) : (
-                                <>
-                                  <FiToggleLeft className="w-5 h-5" />
-                                  <span>Activate Team</span>
-                                </>
-                              )}
-                            </>
-                          )}
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => {
+                          setModalMembers(team.members || []);
+                          setModalTeamName(team.teamName);
+                          setModalOpen(true);
+                        }}
+                        className="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl sm:rounded-2xl font-semibold transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-xl"
+                      >
+                        <FiUsers className="w-4 h-4 sm:w-5 sm:h-5 group-hover/btn:scale-110 transition-transform duration-300" />
+                        View Members ({team.members?.length || 0})
+                      </button>
                     </div>
                   </div>
                 );

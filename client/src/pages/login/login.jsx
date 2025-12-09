@@ -3,6 +3,7 @@ import { User, Lock, LogIn, AlertCircle, CheckCircle, Shield } from 'lucide-reac
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../../configs/api.js';
 import { toast } from 'react-hot-toast';
+import InactiveTeamModal from '../../components/InactiveTeamModal';
 
 const Login = () => {
   useEffect(() => {
@@ -14,6 +15,7 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [loginMessage, setLoginMessage] = useState('');
+  const [showInactiveModal, setShowInactiveModal] = useState(false);
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -81,15 +83,28 @@ const Login = () => {
       }
     } catch (error) {
       console.error('Login error:', error);
-      if (error.response?.data?.message) setLoginMessage(`Error: ${error.response.data.message}`);
-      else setLoginMessage('Login failed. Please try again later.');
+      
+      // Check if team is inactive (403 status)
+      if (error.response?.status === 403) {
+        setShowInactiveModal(true);
+      } else if (error.response?.data?.message) {
+        setLoginMessage(`Error: ${error.response.data.message}`);
+      } else {
+        setLoginMessage('Login failed. Please try again later.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#07203a] via-[#0b3b67] to-[#07203a] py-8 px-4 ">
+    <>
+      <InactiveTeamModal 
+        isOpen={showInactiveModal} 
+        onClose={() => setShowInactiveModal(false)} 
+      />
+      
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#07203a] via-[#0b3b67] to-[#07203a] py-8 px-4 ">
       {/* Decorative background shapes (responsive & subtle) */}
       <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="hidden md:block absolute -top-36 -right-36 w-80 h-80 rounded-full bg-white opacity-5" />
@@ -219,6 +234,7 @@ const Login = () => {
         </p>
       </div>
     </div>
+    </>
   );
 };
 

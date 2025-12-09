@@ -1,6 +1,6 @@
 
 import express from "express";
-import { verifyPayment ,registerAdmin,getAllPayments, getPaymentById, sendAdminOTP, verifyAdminOTP, adminLogin, deleteProblemStatement, editProblemStatement, deleteAdmin, adminLogout, getAllUsers, getAllThemes, createTheme, editTheme, deleteTheme, getAllTeams, getAllProblemStatementsAdmin, createProblemStatement, toggleTeamStatus } from "../controller/SuperadminController.js";
+import { verifyPayment ,registerAdmin,getAllPayments, getPaymentById, sendAdminOTP, verifyAdminOTP, adminLogin, deleteProblemStatement, editProblemStatement, deleteAdmin, adminLogout, getAllUsers, getAllThemes, createTheme, editTheme, deleteTheme, getAllTeams, getAllProblemStatementsAdmin, createProblemStatement } from "../controller/SuperadminController.js";
 
 const router = express.Router();
 
@@ -46,8 +46,6 @@ router.post("/verifyPayment/:id", verifyPayment);
 router.get("/payments", getAllPayments);    
 // Get payment by ID
 router.get("/payment/:id", getPaymentById);
-// Toggle team active/inactive status
-router.patch("/team/:teamId/toggle-status", toggleTeamStatus);
 
 
 

@@ -200,7 +200,7 @@ export const AdminAPI = {
     activateAllProblemStatements: () => api.patch('/problem/activate-all'),
     
     // Toggle team active/inactive status
-    toggleTeamStatus: (teamId, isActive) => api.patch(`/admin/team/${teamId}/toggle-status`, { isActive }),
+    toggleTeamStatus: (teamId, isActive) => api.patch(`/s/admin/team/${teamId}/toggle-status`, { isActive }),
 
        // payment
     getAllPayments: () => api.get('/admin/payments'),
